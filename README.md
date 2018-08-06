@@ -1,4 +1,5 @@
 #Install WordPress
+
 mkdir =p /var/www/mylab
 cd /var/www/mylab
 wget http://wordpress.org/latest.tar.gz
@@ -18,7 +19,9 @@ chown -R www-data:www-data /var/www/mylab #Change the owner & group to www-data
   define('DB_PASSWORD', 'P@ssw0rd');
  
 #Create Nginx Virtual Host File
+
 nano /etc/nginx/sites-available/mylab
+
 #Paste the following to /etc/nginx/sites-available/wordpress
   server {
       server_name dev.mylab.com;
@@ -51,25 +54,34 @@ nano /etc/nginx/sites-available/mylab
  
     }  
  
+
 #Unlink and link
+
 unlink /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/mylab /etc/nginx/sites-enabled/mylab
  
 #Increase the Upload File Size in Nginx
+
 vi /etc/nginx/nginx.conf
+
 #set client body size to 10MB
-  http {
+
+http {
       ##
       # Basic Settings
       ##
       client_max_body_size 10M;
 }
  
+
 #Increase the MAX upload file size
+
 nano /etc/php/7.0/fpm/php.ini
   upload_max_filesize = 10M
  
+
 #Restart Services
+
 service nginx restart
 service php7.0-fpm restart
  
